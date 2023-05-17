@@ -23,11 +23,15 @@ const gameBoard = (() => {
   });
 
   gameHtml.addEventListener("click", (item) => {
+
     let indexCell = item.target.dataset.index;
+    if (!indexCell) return; // Click on cell, not the background
     console.log(item);
     gameBoardArray[indexCell] = gameController.defaultPlayer.marker;
     item.target.textContent = gameController.defaultPlayer.marker;
-    console.log(gameBoardArray)
+    console.log(gameBoardArray);
+
+    gameController.switchPlayerMarker();
 
   });
 
@@ -43,9 +47,15 @@ const gameController = (() => {
   const playerO = playerFactory("playerO", "O");
   const playerX = playerFactory("playerX", "X");
 
-  const defaultPlayer = playerO;
+  let defaultPlayer = playerO;
 
+  const switchPlayerMarker = () => {
+    defaultPlayer === playerO ? playerO : playerX;
+    console.log(defaultPlayer)
+  }
+  
   return {
-    defaultPlayer
+    defaultPlayer,
+    switchPlayerMarker,
   }
 })();
