@@ -1,0 +1,23 @@
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.gameBoard {
+    background-color: antiquewhite;
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+}
+
+.gameCell {
+    width: 100%;
+    height: 100%;
+    background-color: bisque;
+    border: 1px solid #000;
+}
+
+.gameCell:hover {
+    background-color: beige;
+}
