@@ -2,7 +2,11 @@ console.log("hello JS");
 
 const gameBoard = (() => {
   console.log("gameboard");
-  let gameBoardArray = ["X", "O", "X", "O", "X", "O", "X", "O", "X"];
+  let gameBoardArray = [];
+
+  for(let i = 0; i < 9; i++){
+    gameBoardArray.push('');
+  }
 
   const showBoard = () => {
     const gameHtml = document.querySelector("#gameBoard");
