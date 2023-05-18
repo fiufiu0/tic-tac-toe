@@ -1,7 +1,6 @@
 // Player factory
 const playerFactory = (nick, marker) => {
-  const whatMarker = () => console.log("marker", marker);
-  return { nick, marker, whatMarker };
+  return { nick, marker };
 };
 
 // Game board module IIFE
@@ -23,16 +22,12 @@ const gameBoard = (() => {
   });
 
   gameHtml.addEventListener("click", (item) => {
-
     let indexCell = item.target.dataset.index;
     if (!indexCell) return; // Click on cell, not the background
-    console.log(item);
     gameBoardArray[indexCell] = gameController.defaultPlayer.marker;
     item.target.textContent = gameController.defaultPlayer.marker;
-    console.log(gameBoardArray);
-
     gameController.switchPlayerMarker();
-
+    console.log(gameBoardArray);
   });
 
   return {
@@ -49,13 +44,16 @@ const gameController = (() => {
 
   let defaultPlayer = playerO;
 
-  const switchPlayerMarker = () => {
-    defaultPlayer === playerO ? playerO : playerX;
-    console.log(defaultPlayer)
+  function switchPlayerMarker(){
+    this.defaultPlayer === playerO
+      ? this.defaultPlayer = playerX
+      : this.defaultPlayer = playerO;
+    console.log("default func", defaultPlayer);
+    console.log(defaultPlayer.nick)
   }
-  
+
   return {
     defaultPlayer,
     switchPlayerMarker,
-  }
+  };
 })();
