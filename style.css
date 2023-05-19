@@ -2,6 +2,25 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    text-align: center;
+}
+
+.container p {
+    padding-bottom: 2rem;
+    font-size: 1.3rem;
+    font-weight: 500;
 }
 
 .gameBoard {
