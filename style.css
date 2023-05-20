@@ -24,17 +24,20 @@ body {
 }
 
 .gameBoard {
-    background-color: antiquewhite;
     display: grid;
     grid-template-columns: 100px 100px 100px;
     grid-template-rows: 100px 100px 100px;
 }
 
 .gameCell {
-    width: 100%;
-    height: 100%;
-    background-color: bisque;
+    background-color: #eeeeee;
     border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .gameCell:hover {
