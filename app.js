@@ -23,11 +23,14 @@ const gameBoard = (() => {
 
   gameHtml.addEventListener("click", (item) => {
     let indexCell = item.target.dataset.index;
-    if (!indexCell) return; // Click on cell, not the background
-    gameBoardArray[indexCell] = gameController.defaultPlayer.marker;
-    item.target.textContent = gameController.defaultPlayer.marker;
+    if (!indexCell) return; // Return if user click outside
+    if(gameBoardArray[indexCell] === 'X' || gameBoardArray[indexCell] === 'O') {
+      return
+    }
+    gameBoardArray[indexCell] = gameController.getPlayer().marker;
+    item.target.textContent = gameController.getPlayer().marker;
     gameController.switchPlayerMarker();
-    console.log(gameBoardArray);
+    console.log(gameBoardArray)
   });
 
   return {
@@ -44,16 +47,27 @@ const gameController = (() => {
 
   let defaultPlayer = playerO;
 
-  function switchPlayerMarker(){
-    this.defaultPlayer === playerO
-      ? this.defaultPlayer = playerX
-      : this.defaultPlayer = playerO;
+  // Get value from the IIFE. Return variable from IIFE.
+  const getPlayer = () => defaultPlayer;
+
+  const switchPlayerMarker = () => {
+    defaultPlayer === playerO
+      ? defaultPlayer = playerX
+      : defaultPlayer = playerO;
     console.log("default func", defaultPlayer);
-    console.log(defaultPlayer.nick)
-  }
+    console.log(defaultPlayer)
+  };
+
+  // function switchPlayerMarker(){
+  //   this.defaultPlayer === playerO
+  //     ? this.defaultPlayer = playerX
+  //     : this.defaultPlayer = playerO;
+  //   console.log("default func", defaultPlayer);
+  //   console.log(defaultPlayer.nick)
+  // }
 
   return {
-    defaultPlayer,
-    switchPlayerMarker,
+    getPlayer,
+    switchPlayerMarker
   };
 })();
