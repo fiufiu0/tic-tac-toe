@@ -31,6 +31,9 @@ const gameBoard = (() => {
     item.target.textContent = gameController.getPlayer().marker;
     gameController.switchPlayerMarker();
     console.log(gameBoardArray)
+
+    gameController.checkWinner();
+    
   });
 
   return {
@@ -41,6 +44,17 @@ const gameBoard = (() => {
 // Game controller module IIFE
 const gameController = (() => {
   console.log("gameController run");
+
+  let winCells = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
 
   const playerO = playerFactory("playerO", "O");
   const playerX = playerFactory("playerX", "X");
@@ -66,7 +80,18 @@ const gameController = (() => {
   //   console.log(defaultPlayer.nick)
   // }
 
+  const checkWinner = () => {
+    let array = gameBoard.gameBoardArray;
+    for (const [a,b,c] of winCells) {
+      if(array[a] && array[b] && array[c] === 'X'){
+        console.log("win x")
+      }
+    }
+  }
+
+
   return {
+    checkWinner,
     getPlayer,
     switchPlayerMarker
   };
