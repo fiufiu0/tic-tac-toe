@@ -80,13 +80,24 @@ const gameController = (() => {
   //   console.log(defaultPlayer.nick)
   // }
 
+  const resetBoard = () => {
+    let array = gameBoard.gameBoardArray;
+    for (let i = 0; i < 9; i++) {
+      array[i] = '';
+    }
+  }
+
   const checkWinner = () => {
     let array = gameBoard.gameBoardArray;
     for (const [a,b,c] of winCells) {
-      if(array[a] && array[b] && array[c] === 'X'){
-        console.log("win x")
+      if(array[a] === 'X' && array[b] === 'X' && array[c] === 'X'){
+        console.log('x win')
+        resetBoard();
+      } else if (array[a] === 'O' && array[b] === 'O' && array[c] === 'O'){
+        console.log('o win')
       }
     }
+    
   }
 
 
