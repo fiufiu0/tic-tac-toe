@@ -29,14 +29,24 @@ const gameBoard = (() => {
     }
     gameBoardArray[indexCell] = gameController.getPlayer().marker;
     item.target.textContent = gameController.getPlayer().marker;
-    gameController.switchPlayerMarker();
-    console.log(gameBoardArray)
+
+    gameController.lastCells -= 1;
 
     gameController.checkWinner();
+    if(gameController.winner == false){
+      if(gameController.lastCells > 0){
+        console.log("playing")
+        gameController.switchPlayerMarker();
+        console.log(gameController.lastCells)
+      } else if (gameController.lastCells === 0){
+        console.log("zero cells")
+      }
+    } 
     
   });
 
   return {
+    gameHtml,
     gameBoardArray,
   };
 })();
@@ -60,6 +70,8 @@ const gameController = (() => {
   const playerX = playerFactory("playerX", "X");
 
   let defaultPlayer = playerO;
+  let winner = false;
+  let lastCells = 9;
 
   // Get value from the IIFE. Return variable from IIFE.
   const getPlayer = () => defaultPlayer;
@@ -68,20 +80,12 @@ const gameController = (() => {
     defaultPlayer === playerO
       ? defaultPlayer = playerX
       : defaultPlayer = playerO;
-    console.log("default func", defaultPlayer);
     console.log(defaultPlayer)
   };
 
-  // function switchPlayerMarker(){
-  //   this.defaultPlayer === playerO
-  //     ? this.defaultPlayer = playerX
-  //     : this.defaultPlayer = playerO;
-  //   console.log("default func", defaultPlayer);
-  //   console.log(defaultPlayer.nick)
-  // }
+  
 
-  const resetBoard = () => {
-    let array = gameBoard.gameBoardArray;
+  const resetBoard = (array) => {
     for (let i = 0; i < 9; i++) {
       array[i] = '';
     }
@@ -92,16 +96,21 @@ const gameController = (() => {
     for (const [a,b,c] of winCells) {
       if(array[a] === 'X' && array[b] === 'X' && array[c] === 'X'){
         console.log('x win')
-        resetBoard();
+        resetBoard(array);
+        // resetInterface();
+        winner = true;
       } else if (array[a] === 'O' && array[b] === 'O' && array[c] === 'O'){
         console.log('o win')
+        resetBoard(array);
+        winner = true;
       }
     }
-    
   }
 
 
   return {
+    lastCells,
+    winner,
     checkWinner,
     getPlayer,
     switchPlayerMarker
