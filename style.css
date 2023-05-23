@@ -17,10 +17,15 @@ body {
     text-align: center;
 }
 
-.container p {
+.title {
     padding-bottom: 2rem;
     font-size: 1.3rem;
     font-weight: 500;
+}
+
+.playerInfo {
+    padding-bottom: 1rem;
+    font-weight: 300;
 }
 
 .gameBoard {

@@ -57,6 +57,8 @@ const gameBoard = (() => {
 const gameController = (() => {
   console.log("gameController run");
 
+  const playerInfo = document.getElementById("playerInfo");
+
   let winCells = [
     [0, 1, 2],
     [3, 4, 5],
@@ -68,8 +70,8 @@ const gameController = (() => {
     [2, 4, 6],
   ];
 
-  const playerO = playerFactory("playerO", "O");
-  const playerX = playerFactory("playerX", "X");
+  const playerO = playerFactory("Player O", "O");
+  const playerX = playerFactory("Player X", "X");
 
   let defaultPlayer = playerO;
   let winner = false;
@@ -82,7 +84,7 @@ const gameController = (() => {
     defaultPlayer === playerO
       ? defaultPlayer = playerX
       : defaultPlayer = playerO;
-    console.log(defaultPlayer)
+      showCurrentPlayer();
   };
 
 
@@ -111,6 +113,12 @@ const gameController = (() => {
   const gameOver = () => {
     return winner;
   }
+
+  const showCurrentPlayer = () => {
+    playerInfo.textContent = `${defaultPlayer.nick}'s move!`
+  }
+
+  showCurrentPlayer(); // set default player move when game starts
 
   return {
     lastCells,
