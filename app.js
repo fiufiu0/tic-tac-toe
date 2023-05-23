@@ -27,13 +27,15 @@ const gameBoard = (() => {
     if(gameBoardArray[indexCell] === 'X' || gameBoardArray[indexCell] === 'O') {
       return
     }
+    if(gameController.gameOver()) return; // if gameOver is true, then do nothing
+
     gameBoardArray[indexCell] = gameController.getPlayer().marker;
     item.target.textContent = gameController.getPlayer().marker;
-
     gameController.lastCells -= 1;
 
     gameController.checkWinner();
-    if(gameController.winner == false){
+
+    if(gameController.gameOver() === false){ // if gameOver is false, switch markers until win / 0 cells
       if(gameController.lastCells > 0){
         console.log("playing")
         gameController.switchPlayerMarker();
@@ -83,7 +85,6 @@ const gameController = (() => {
     console.log(defaultPlayer)
   };
 
-  
 
   const resetBoard = (array) => {
     for (let i = 0; i < 9; i++) {
@@ -107,10 +108,13 @@ const gameController = (() => {
     }
   }
 
+  const gameOver = () => {
+    return winner;
+  }
 
   return {
     lastCells,
-    winner,
+    gameOver,
     checkWinner,
     getPlayer,
     switchPlayerMarker
