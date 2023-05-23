@@ -101,11 +101,13 @@ const gameController = (() => {
         console.log('x win')
         resetBoard(array);
         // resetInterface();
+        showWinner();
         winner = true;
       } else if (array[a] === 'O' && array[b] === 'O' && array[c] === 'O'){
         console.log('o win')
         resetBoard(array);
         winner = true;
+        showWinner();
       }
     }
   }
@@ -116,6 +118,10 @@ const gameController = (() => {
 
   const showCurrentPlayer = () => {
     playerInfo.textContent = `${defaultPlayer.nick}'s move!`
+  }
+
+  const showWinner = () => {
+    playerInfo.textContent = `${defaultPlayer.nick} win!`
   }
 
   showCurrentPlayer(); // set default player move when game starts
