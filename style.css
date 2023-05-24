@@ -18,14 +18,27 @@ body {
 }
 
 .title {
-    padding-bottom: 2rem;
-    font-size: 1.3rem;
-    font-weight: 500;
+    padding-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
 .playerInfo {
+    font-size: 1.1rem;
     padding-bottom: 1rem;
     font-weight: 300;
+}
+
+.restartBtn {
+    margin-top: 1.5rem;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #b8bcc6;
 }
 
 .gameBoard {
