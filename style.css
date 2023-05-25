@@ -39,6 +39,12 @@ body {
     font-size: 1rem;
     cursor: pointer;
     background-color: #b8bcc6;
+    transition: all 0.1s ease-in;
+}
+
+.restartBtn:hover {
+    transform: scale(1.05);
+    background-color: #aeb2bb;
 }
 
 .gameBoard {
