@@ -31,17 +31,18 @@ const gameBoard = (() => {
 
     gameBoardArray[indexCell] = gameController.getPlayer().marker;
     item.target.textContent = gameController.getPlayer().marker;
-    gameController.lastCells -= 1;
-
+    gameController.rounds(); // decrement rounds
     gameController.checkWinner();
 
+
     if(gameController.gameOver() === false){ // if gameOver is false, switch markers until win / 0 cells
-      if(gameController.lastCells > 0){
+      if(gameController.howRounds() > 0){
         console.log("playing")
         gameController.switchPlayerMarker();
-        console.log(gameController.lastCells)
-      } else if (gameController.lastCells === 0){
+        console.log(gameController.howRounds())
+      } else if (gameController.howRounds() === 0){
         console.log("zero cells")
+        gameController.showTie();
       }
     } 
     
@@ -57,7 +58,12 @@ const gameBoard = (() => {
 const gameController = (() => {
   console.log("gameController run");
 
+  const playerO = playerFactory("Player O", "O");
+  const playerX = playerFactory("Player X", "X");
+
   const playerInfo = document.getElementById("playerInfo");
+  const restartBtn = document.getElementById("restartBtn");
+  const gameCells = document.querySelectorAll(".gameCell")
 
   let winCells = [
     [0, 1, 2],
@@ -70,15 +76,13 @@ const gameController = (() => {
     [2, 4, 6],
   ];
 
-  const playerO = playerFactory("Player O", "O");
-  const playerX = playerFactory("Player X", "X");
-
   let defaultPlayer = playerO;
   let winner = false;
   let lastCells = 9;
 
   // Get value from the IIFE. Return variable from IIFE.
   const getPlayer = () => defaultPlayer;
+  
 
   const switchPlayerMarker = () => {
     defaultPlayer === playerO
@@ -94,18 +98,38 @@ const gameController = (() => {
     }
   }
 
+  const restartGame = () => {
+    resetBoard(gameBoard.gameBoardArray);
+
+    gameCells.forEach(cell => {
+      cell.textContent = '';
+    })
+
+    winner = false;
+    lastCells = 9;
+    defaultPlayer = playerO;
+    showCurrentPlayer();
+  }
+
+  const rounds = () => { // decrement rounds
+    lastCells--;
+  }
+
+  const howRounds = () => { // return updated value
+    return lastCells;
+  }
+
+  restartBtn.onclick = restartGame;
+
   const checkWinner = () => {
     let array = gameBoard.gameBoardArray;
     for (const [a,b,c] of winCells) {
       if(array[a] === 'X' && array[b] === 'X' && array[c] === 'X'){
         console.log('x win')
-        resetBoard(array);
-        // resetInterface();
         showWinner();
         winner = true;
       } else if (array[a] === 'O' && array[b] === 'O' && array[c] === 'O'){
         console.log('o win')
-        resetBoard(array);
         winner = true;
         showWinner();
       }
@@ -124,10 +148,16 @@ const gameController = (() => {
     playerInfo.textContent = `${defaultPlayer.nick} win!`
   }
 
+  const showTie = () => {
+    playerInfo.textContent = `Tie!`
+  }
+
   showCurrentPlayer(); // set default player move when game starts
 
   return {
-    lastCells,
+    showTie,
+    rounds,
+    howRounds,
     gameOver,
     checkWinner,
     getPlayer,
